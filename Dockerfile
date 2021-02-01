@@ -3,11 +3,11 @@ FROM node:lts
 WORKDIR /usr/src/app
 
 # Install SSH
-RUN apt-get update && \
-  apt-get install -y ssh \
-  apt-get clean;
+# RUN apt-get update && \
+#   apt-get install -y openssh-server && \
+#   apt-get clean;
 
-RUN systemctl ssh enable && systemctl ssh start
+# RUN systemctl enable ssh.service && systemctl start ssh.service
 
 # Install OpenJDK-8
 RUN apt-get update && \
@@ -27,7 +27,7 @@ RUN export JAVA_HOME
 
 COPY package*.json ./
 
-RUN npm install -only=production
+RUN npm install -only=production && npm run tsc
 
 COPY . .
 
